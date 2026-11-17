@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="app">
+  <header class="topbar">
+    <div class="brand-mark">✳</div>
+    <div>
+      <h1>다모아</h1>
+      <p>수행평가, 이제 놓치지 말고 한 눈에 다모아!</p>
+    </div>
+    <div class="header-date" id="todayLabel"></div>
+  </header>
+
+  <!-- 로그인 -->
+  
+<!-- 로그인 -->
+<section class="panel" id="authPanel" style="margin: 18px 0;">
+  <h2 id="authTitle">다모아 접속</h2>
+
+  <p id="authMessage" style="margin: 10px 0; color: #96877a;">
+    학생은 공통 비밀번호로 접속해 주세요.
+  </p>
+
+  <!-- 학생용 공통 비밀번호 -->
+  <form id="studentLoginForm">
+    <label for="studentPassword">공통 비밀번호</label>
+    <input
+      id="studentPassword"
+      type="password"
+      required
+      placeholder="공통 비밀번호 입력"
+      autocomplete="off"
+      style="display:block;width:100%;padding:11px;margin:6px 0 12px;border:1px solid #e5dbcf;border-radius:9px;"
+    >
+    <button class="submit-button" type="submit" style="width:100%;">
+      학생으로 접속
+    </button>
+  </form>
+
+  <!-- 운영진용 기존 이메일 로그인 -->
+  <details style="margin-top:16px;">
+    <summary style="cursor:pointer;color:#806b59;">
+      운영진 로그인
+    </summary>
+
+    <form id="loginForm" style="margin-top:12px;">
+      <label for="loginEmail">이메일</label>
+      <input
+        id="loginEmail"
+        type="email"
+        required
+        autocomplete="username"
+        placeholder="운영진 이메일"
+        style="display:block;width:100%;padding:11px;margin:6px 0 12px;border:1px solid #e5dbcf;border-radius:9px;"
+      >
+
+      <label for="loginPassword">비밀번호</label>
+      <input
+        id="loginPassword"
+        type="password"
+        required
+        autocomplete="current-password"
+        placeholder="운영진 비밀번호"
+        style="display:block;width:100%;padding:11px;margin:6px 0 12px;border:1px solid #e5dbcf;border-radius:9px;"
+      >
+
+      <button class="submit-button" type="submit" style="width:100%;">
+        운영진 로그인
+      </button>
+    </form>
+  </details>
+
+  <button
+    class="cancel-button"
+    id="logoutButton"
+    type="button"
+    style="display:none;margin-top:8px;width:100%;"
+  >
+    로그아웃
+  </button>
+</section>
+ <div id="plannerContent" style="display:none;">
+
+  <!-- 환영 영역 -->
+  <section class="welcome">
+    <div>
+      <span class="eyebrow">MY SCHOOL PLANNER</span>
+      <h2>오늘도 차근차근,<br>하나씩 완성해 봐요.</h2>
+      <p id="progressText">오늘의 할 일을 확인해 보세요.</p>
+    </div>
+    <div class="welcome-icon">🗓️</div>
+  </section>
+
+  <main class="dashboard">
+    <!-- 과제 목록 -->
+    <section class="panel task-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="eyebrow">YOUR ASSIGNMENTS</span>
+          <h2>마감 임박 순서</h2>
+        </div>
+        <span class="count-badge" id="taskCount">0개</span>
+      </div>
+
+      <!-- 과목 필터 -->
+      <div class="filters" id="filters">
+        <button type="button" class="filter active" data-subject="전체">전체</button>
+        <button type="button" class="filter" data-subject="국어">국어</button>
+        <button type="button" class="filter" data-subject="수학">수학</button>
+        <button type="button" class="filter" data-subject="영어">영어</button>
+        <button type="button" class="filter" data-subject="사회">사회</button>
+        <button type="button" class="filter" data-subject="과학">과학</button>
+        <button type="button" class="filter" data-subject="한국사">한국사</button>
+        <button type="button" class="filter" data-subject="기타">기타</button>
+      </div>
+
+      <!-- JS가 과제 목록을 표시 -->
+      <div class="task-list" id="taskList"></div>
+
+      <!-- 관리자 전용 과제 추가 버튼 -->
+      <button type="button" class="add-button" id="openForm">
+        ＋ 수행평가 추가하기
+      </button>
+
+      <!-- 과제 추가 및 수정 폼 -->
+      <form class="add-form hidden" id="taskForm">
+        <h3>새 수행평가</h3>
+
+        <label for="taskTitle">과제명</label>
+        <input id="taskTitle" placeholder="예: 탐구 보고서 작성" required maxlength="80">
+
+        <div class="form-row">
+          <div>
+            <label for="taskSubject">과목</label>
+            <select id="taskSubject">
+              <option>국어</option>
+              <option>수학</option>
+              <option>영어</option>
+              <option>사회</option>
+              <option>과학</option>
+              <option>한국사</option>
+              <option>기타</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="taskDate">마감일</label>
+            <input id="taskDate" type="date" required>
+          </div>
+        </div>
+
+        <label for="taskNote">메모 (선택)</label>
+        <input id="taskNote" placeholder="예: 발표 자료도 준비하기" maxlength="120">
+
+        <div class="form-actions">
+          <button type="button" class="cancel-button" id="cancelForm">
+            취소
+          </button>
+          <button type="submit" class="submit-button">과제 저장</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 오른쪽 영역 -->
+    <div class="right-column">
+      <!-- 월간 달력 -->
+      <section class="panel calendar-panel">
+        <div class="calendar-heading">
+          <div>
+            <span class="eyebrow">MONTHLY PLAN</span>
+            <h2 id="calendarTitle"></h2>
+          </div>
+
+          <div class="month-controls">
+            <button type="button" id="prevMonth" aria-label="이전 달">‹</button>
+            <button type="button" id="nextMonth" aria-label="다음 달">›</button>
+          </div>
+        </div>
+
+        <div class="weekdays">
+          <span>일</span>
+          <span>월</span>
+          <span>화</span>
+          <span>수</span>
+          <span>목</span>
+          <span>금</span>
+          <span>토</span>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid"></div>
+
+        <div class="legend">
+          <span><i class="dot deadline-dot"></i>마감일</span>
+          <span><i class="dot selected-dot"></i>선택한 날짜</span>
+        </div>
+      </section>
+
+      <!-- 선택한 날짜의 일정 -->
+      <section class="panel day-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">DAILY SCHEDULE</span>
+            <h2 id="selectedDateTitle">선택한 날짜</h2>
+          </div>
+          <span class="day-icon">▣</span>
+        </div>
+
+        <div id="dayTasks" class="day-list"></div>
+      </section>
+
+      <!-- 응원 문구 -->
+      <div class="quote-card">
+        <span>✳</span>
+        <p>
+          작은 노력도 차곡차곡.<br>
+          <strong>오늘의 계획이 내일의 여유가 돼요.</strong>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span>✳ 다모아</span>
+    <span>나만의 수행평가 플래너</span>
+  </footer>
+</div>
+    <script src='https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js'></script>
+<script src='https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js'></script>
+<script src='https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'></script><script  src="./script.js"></script>
+
+  </body>
+  
+</html>
